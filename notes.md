@@ -85,3 +85,24 @@ Docker's default image registry is called Docer Hub (hub.docker.com)
 
 run/stop/remove containers
 check container logs and processes
+
+- Manage Multiple Containers
+
+Example: nginx(80:80), mysql(3306:3306), httpd(8080:80)
+When running mysql, use the --env to pass MYSQL_RANGOM_ROOT_PASSWORD=yes (see docker container logs)
+
+Commands:
+
+`docker container run -d -p 3306:3306 --name db -e MYSQL_RANGOM_ROOT_PASSWORD=yes mysql`
+
+`docker container logs`
+
+`docker container run -d -p 8080:80 --name webserver httpd `
+
+`docker container run -d --name proxy -p 80:80 nginx`
+
+`curl localhost:8080`
+
+`docker container stop <containerID> <containerID> <containerID>`
+
+`docker container rm <containerID> <containerID> <containerID>`
