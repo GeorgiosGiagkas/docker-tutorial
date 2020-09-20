@@ -106,3 +106,32 @@ Commands:
 `docker container stop <containerID> <containerID> <containerID>`
 
 `docker container rm <containerID> <containerID> <containerID>`
+
+### Other useful commands:
+
+`docker container ls -a`
+This shows all containers running or stopped. Another way to do it is the shorter alias command: docker ps -a
+
+`docker container top <containerName>`
+process list in one container
+
+`docker container inspect <containerName>` 
+details of one contaner config
+
+`docker container stats`
+performance stats(memory etc) for all containers
+
+### Getting a shell inside containers
+
+`docker container run -it` start new container interactively (no ssh needed)
+
+example:
+
+`docker container run -it --name proxy nginx bash`
+
+or
+
+A full ubuntu distribution:
+`docker container run -it --name ubuntu ubuntu`
+
+`docker container exec -it <containerId> <command>` run additional command in existing container running
