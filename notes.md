@@ -135,3 +135,33 @@ A full ubuntu distribution:
 `docker container run -it --name ubuntu ubuntu`
 
 `docker container exec -it <containerId> <command>` run additional command in existing container running
+
+### Private and Public  comms in containers
+
+`docker container run -p 80:80` Expose ports to the physical network.
+
+`docker container port <container>`
+
+> Concepts of Docker Networking<br>
+Defaults:Each container connected to a private virtual network "bridge". Each virtual network routes through NAT firewall on host IP. All container on a virtual network can talk to each onther without -p. Best practice is to create a new virtual network for each app:<br>
+1. network "my_web_app" for mysql and apache containers.
+2. network "my_api" for mongo and nodejs containers.
+> <mark style="background-color:green">Containers can be attacked to more than one virual network or none. Skip virual networkds an duse host IP(--net=host)</mark>
+
+`docker container inspect --format '{{ .NetworkSetting.IPAddress }}' <containerName>` Find out the IP of the network the container uses(not the same as the host?). 
+> In mac find the ip address of the host by:<br>
+`ifconfig en0`
+
+### Docker Networks CLI Management
+
+`docker network ls`: show networks
+
+`docker network inspect <networkName>`: inspect a network
+
+`docker network create <networkName> --driver`: create a network.Default driver is "bridge"
+
+`docker network connect <networkID>`: attach a network to container
+
+`docker network disconnet <networkID>`: detacha network form container
+
+> Security issues: Create your apps so frontend/backend sit on the same Docker network
