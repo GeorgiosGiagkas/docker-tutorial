@@ -202,3 +202,19 @@ Example:
 > `nslookup` is a network administration command-line tool available in many computer operating systems for querying the Domain Name System (DNS) to obtain domain name or IP address mapping, or other DNS records. The name "nslookup" means "name server lookup"
 
 - `docker container run --rm  --net dude centos curl -s search:9200`: same but for Centos
+
+## Container Images
+
+
+### What is an image
+
+App binaries and dependencies plus metadata about the image data and how to run the image.
+
+It is not: a comple OS. no kernel, kernel modules (e.g. drivers). The host privides the kernel.
+
+### Docker Hub
+Find images:
+
+https://hub.docker.com/search?q=&type=image
+
+https://github.com/docker-library/official-images/tree/master/library
