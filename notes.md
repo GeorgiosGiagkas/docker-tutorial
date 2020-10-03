@@ -181,3 +181,24 @@ Solution is DNS naming. Docker uses by default the container name as  Host name 
 `docker container exec -it <containerName1> ping <containerName2>` : check connection between two container by pinging.
 
 > Bridge network does not have the DNS server build in by default. use `--link`
+
+`docker container run --rm it ubuntu:14:04 bash`: the --rm removes container when the container stops running (`exit`)
+
+### DNS Round Robin test assignment
+
+Use same name with different IP addresses behind the name. In Docker we can have multiple containers ona a created netwark that respond to the same DNS address(aliases). 
+
+Option for docker run: `--network-alias search` when creating them, so thay are not only "called" by their container name
+
+> Round robin technick is a poor load balancer
+
+Example:
+
+- `docker network create dude`: create network named "dude"
+-  `docker container run -d --net dude --network-alias search elastiscearch:2`: create container for "elastiscearch:2" and run it in the background. Attach it to network "dude" and assign an alias with dns name "search"
+- run the previous two time to create 2 containers with random container names.
+- `docker container run --rm --net dude alpine nslookup search`: create and run container "alpine" attached to network "dude" and use the command `nslookup` to query the DNS to obtain the name or IP address. Then remove container.
+
+> `nslookup` is a network administration command-line tool available in many computer operating systems for querying the Domain Name System (DNS) to obtain domain name or IP address mapping, or other DNS records. The name "nslookup" means "name server lookup"
+
+- `docker container run --rm  --net dude centos curl -s search:9200`: same but for Centos
