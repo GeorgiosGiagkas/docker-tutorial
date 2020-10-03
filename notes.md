@@ -148,6 +148,9 @@ Defaults:Each container connected to a private virtual network "bridge". Each vi
 2. network "my_api" for mongo and nodejs containers.
 > <mark style="background-color:green">Containers can be attacked to more than one virual network or none. Skip virual networkds an duse host IP(--net=host)</mark>
 
+> the default bridge network driver allow containers to communicate with each other when running on the same docker host.
+
+
 `docker container inspect --format '{{ .NetworkSetting.IPAddress }}' <containerName>` Find out the IP of the network the container uses(not the same as the host?). 
 > In mac find the ip address of the host by:<br>
 `ifconfig en0`
@@ -165,3 +168,16 @@ Defaults:Each container connected to a private virtual network "bridge". Each vi
 `docker network disconnet <networkID>`: detacha network form container
 
 > Security issues: Create your apps so frontend/backend sit on the same Docker network
+
+### Docker Networks: DNS
+
+1. Do not depend on IPs as inside containers are dynamic. Better use DNS.
+2. Use `--link` to anable DNS on default bridge network
+
+> Forget IPs: Static IP's and using IP's for talking to containers is an anti-pattern.
+
+Solution is DNS naming. Docker uses by default the container name as  Host name to communicate between containers. **You can also use aliases**
+
+`docker container exec -it <containerName1> ping <containerName2>` : check connection between two container by pinging.
+
+> Bridge network does not have the DNS server build in by default. use `--link`
