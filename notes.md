@@ -218,3 +218,21 @@ Find images:
 https://hub.docker.com/search?q=&type=image
 
 https://github.com/docker-library/official-images/tree/master/library
+
+### Image Layers
+
+- Image layers
+- union file system
+- `history` and `inspect` commands.
+- Copy on write
+
+`docker image history <image>`: shows layers of changes made in image.
+
+Every image starts with a blank layers called **scratch**
+
+Reuse same layers(unique SHA), if needed!For example to create another image. This saves time and space ny only stored once on a host.
+
+A container is just a single read/write layer on top of image.
+In the container layer, the **copy-on-write** process means that if for example a container runs and attempts to change a file in the image, the file is actually does not change in the image, but a copy is created to the container layer.
+
+`docker image inspect <image>`: returns JSON metadata about the image.
