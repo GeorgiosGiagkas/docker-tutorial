@@ -236,3 +236,29 @@ A container is just a single read/write layer on top of image.
 In the container layer, the **copy-on-write** process means that if for example a container runs and attempts to change a file in the image, the file is actually does not change in the image, but a copy is created to the container layer.
 
 `docker image inspect <image>`: returns JSON metadata about the image.
+
+### Image Tagging and Pushing to Docker Hub
+
+`docker image tag --help`
+
+Repository: Only official are called by the name. Othersie user/repo or organization/repo
+
+tag: is like git tag (An image (id) can have different tags).
+
+> To download specific image based on tag `docker pull <user>/<repo>:<tag>`
+
+`docker image tag <source_image:tag> <target_image:tag>`: Re-tag an existing image.
+
+`docker login <server>`: Log in to Hub. **.docker/config.json** Has Auth tocken for authentication. Store it in this file so better logout at the end of your session for security reasons.
+
+`docker image push <image:tag>`: uploads changed layers to image registry
+
+### Dockerfile basics.
+
+Contains: `FROM`-`ENV`-`RUN`- `EXPOSE` - `CMD`, and runs the file to build an image.
+
+### Running Docker Builds
+
+`docker image build -t customnginx .`: Build image
+
+> Order in Dockerfile matters. Whatever changes more frequest should go to the bottom of the file.
